@@ -29,6 +29,10 @@ public class Drive extends Command {
 		return () -> SensorInput.getUltraDist() <= endDist;
 	}
 
+	protected void execute() {
+		Robot.dl.driveStick(.5, .5);
+	}
+
 	@Override
 	protected boolean isFinished() {
 		return fin.getAsBoolean();
@@ -37,7 +41,7 @@ public class Drive extends Command {
 	protected void end() {
 		SensorInput.setPosition(
 			SensorInput.add.apply( SensorInput.getPosition(),
-			SensorInput.mul.apply( SensorInput.getOrientation(),
+			SensorInput.mul.apply( SensorInput.getGyroOrn(),
 			SensorInput.getEncoderDist() - startDist
 		) ) );
 	}

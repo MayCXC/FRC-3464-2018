@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.drive.Vector2d;
 
 public class Goto extends CommandGroup {
     public Goto(Vector2d newPos) {
-    	addSequential(new Turn(SensorInput.getAngle(newPos)));
+    	addSequential(new Turn(Turn.gyroFin(SensorInput.getAngle(newPos))));
     	addSequential(new Drive(Drive.encoderFin(SensorInput.getDistance(newPos))));
     }
 }

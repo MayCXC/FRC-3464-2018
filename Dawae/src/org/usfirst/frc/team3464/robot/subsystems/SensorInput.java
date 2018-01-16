@@ -9,18 +9,12 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.Vector2d;
 
 public class SensorInput extends Subsystem {
-	private static Vector2d position, orientation;
+	private static Vector2d position;
 	public static void setPosition(Vector2d pos) {
 		position = pos;
 	}
 	public static Vector2d getPosition() {
 		return position;
-	}
-	public static void setOrientation(Vector2d orn) {
-		orientation = orn;
-	}
-	public static Vector2d getOrientation() {
-		return orientation;		
 	}
 
     public static BiFunction<Vector2d,Vector2d,Vector2d> add = 
@@ -33,8 +27,8 @@ public class SensorInput extends Subsystem {
 		(a, b) -> add.apply(a, mul.apply(b, -1.0));
 
 	public static double getAngle(Vector2d newPos) {
-		Vector2d s = sub.apply(newPos, getPosition());
-		return Math.atan2(s.y, s.x);
+		Vector2d diff = sub.apply(newPos, getPosition());
+		return Math.atan2(diff.y, diff.x);
 	}
 
 	public static double getDistance(Vector2d newPos) {
@@ -53,6 +47,11 @@ public class SensorInput extends Subsystem {
 		return RobotMap.gyro.getAngle();
 	}
 
+	public static Vector2d getGyroOrn() {
+		double d = getGyroDir();
+		return new Vector2d(Math.cos(d), Math.sin(d));
+	}
+	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
