@@ -5,8 +5,8 @@ public class RobotMap {
 			leftSpark 		= 0,
 			rightSpark		= 1,
 			joystick 		= 0,
-			encoderA		= 0,
-			encoderB		= 0;
+			encoderA		= 2,
+			encoderB		= 3;
 
 		public static double
 			dpp			= 1.0,
