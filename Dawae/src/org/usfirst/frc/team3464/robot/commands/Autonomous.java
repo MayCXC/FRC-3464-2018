@@ -24,8 +24,7 @@ public class Autonomous extends CommandGroup {
 				SensorInput.movePosition(RobotMap.field.get(RobotMap.Point.C));
 				addSequential(new Goto(RobotMap.field.get(RobotMap.Point.F)));
 				break;
-			default:
-				break;
+			default: break;
 		}
 	}
 

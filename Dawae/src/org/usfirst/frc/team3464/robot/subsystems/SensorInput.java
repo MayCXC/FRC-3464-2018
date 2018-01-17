@@ -40,7 +40,7 @@ public class SensorInput extends Subsystem {
 	public static double getTime() {
 		return RobotMap.timer.get();
 	}
-
+	
 	public static double getEncoderDistance() {
 		return RobotMap.encoder.getDistance();
 	}

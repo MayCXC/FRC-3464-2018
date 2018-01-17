@@ -28,7 +28,7 @@ public class Goto extends CommandGroup {
     public static DoublePredicate driveUltraFinish(double distance) {
     	return d -> SensorInput.getUltraDistance() < distance; // is ignoring the d crappy?
     }
-    
+
     public static DoublePredicate timerFinish(Vector2d there) {
     	double end = SensorInput.getTime() + SensorInput.getDistance(there); // divided by vel etc.
     	return d -> d >= end;
