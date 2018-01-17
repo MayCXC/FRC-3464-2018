@@ -17,17 +17,21 @@ public class Goto extends CommandGroup {
     public static DoublePredicate turnGPSFinish(Vector2d there) {
     	double end = SensorInput.getAngle(there);
     	DoubleUnaryOperator wrap = (d) -> Math.atan2(Math.sin(d), Math.cos(d));
-    	return (d) -> Math.abs( wrap.applyAsDouble( d - end ) ) <= .1;
+    	return d -> Math.abs( wrap.applyAsDouble( d - end ) ) <= .1;
     }
 
     public static DoublePredicate driveEncoderFinish(Vector2d there) {
     	double end = SensorInput.getEncoderDistance() + SensorInput.getDistance(there);
-    	return (d) -> d >= end;
+    	return d -> d >= end;
     }
 
+    public static DoublePredicate driveUltraFinish(double distance) {
+    	return d -> SensorInput.getUltraDistance() < distance; // is ignoring the d crappy?
+    }
+    
     public static DoublePredicate timerFinish(Vector2d there) {
     	double end = SensorInput.getTime() + SensorInput.getDistance(there); // divided by vel etc.
-    	return (d) -> d >= end;
+    	return d -> d >= end;
     }
 
     public Goto(Vector2d there) {
