@@ -5,6 +5,6 @@ import java.util.function.DoubleSupplier;
 
 public class Turn extends Move {
     public Turn(double drive, DoubleSupplier direction, DoublePredicate finished) {
-    	super(drive, -drive, direction, finished);
+    	super(drive, -1.0*drive, direction, finished);
     }
 }

@@ -14,7 +14,7 @@ public class Goto extends CommandGroup {
     	addSequential(d);
     }
 
-    public static DoublePredicate turnGPSFinish(Vector2d there) {
+    public static DoublePredicate turnGyroFinish(Vector2d there) {
     	double end = SensorInput.getAngle(there);
     	DoubleUnaryOperator wrap = (d) -> Math.atan2(Math.sin(d), Math.cos(d));
     	return d -> Math.abs( wrap.applyAsDouble( d - end ) ) <= .1;
@@ -35,7 +35,7 @@ public class Goto extends CommandGroup {
     }
 
     public Goto(Vector2d there) {
-    	addSequential( new Turn( .5, SensorInput::getGyroDirection, turnGPSFinish(there) ) );
+    	addSequential( new Turn( .5, SensorInput::getGyroDirection, turnGyroFinish(there) ) );
     	addSequential( new Drive( .5, SensorInput::getEncoderDistance, driveEncoderFinish(there) ) );
     	// addSequential( new Drive( .5, SensorInput::getTime, driveTimerFinish(there) ) );
     }
