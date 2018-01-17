@@ -1,13 +1,40 @@
 package org.usfirst.frc.team3464.robot.commands;
 
+import java.util.function.BooleanSupplier;
+import java.util.function.DoubleUnaryOperator;
+
 import org.usfirst.frc.team3464.robot.subsystems.SensorInput;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.drive.Vector2d;
 
 public class Goto extends CommandGroup {
-    public Goto(Vector2d newPos) {
-    	addSequential(new Turn(Turn.gyroFin(SensorInput.getAngle(newPos))));
-    	addSequential(new Drive(Drive.encoderFin(SensorInput.getDistance(newPos))));
+    public Goto(Turn t, Drive d) {
+    	addSequential(t);
+    	addSequential(d);
+    }
+
+    public static BooleanSupplier turnGPSFinish(Vector2d there) {
+    	double end = SensorInput.getAngle(there);
+    	DoubleUnaryOperator wrap = (d) -> Math.atan2(Math.sin(d), Math.cos(d));
+    	return () ->
+    		Math.abs( wrap.applyAsDouble( SensorInput.getGyroDirection() - end ) ) <= .1;
+    }
+
+    public static BooleanSupplier driveEncoderFinish(Vector2d there) {
+    	double end = SensorInput.getEncoderDistance() + SensorInput.getDistance(there);
+    	return () ->
+    		SensorInput.getEncoderDistance() >= end;
+    }
+
+    public static BooleanSupplier timerFinish(Vector2d there) {
+    	double end = SensorInput.getTime() + SensorInput.getDistance(there); // divided by vel etc.
+    	return () ->
+    		SensorInput.getTime() >= end;
+    }
+    
+    public Goto(Vector2d there) {
+    	addSequential( new Turn( .5, turnGPSFinish(there) ) );
+    	addSequential( new Drive( .5, SensorInput::getEncoderDistance, driveEncoderFinish(there) ) );
     }
 }

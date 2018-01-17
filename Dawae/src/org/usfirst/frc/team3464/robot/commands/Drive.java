@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3464.robot.commands;
 
 import java.util.function.BooleanSupplier;
+import java.util.function.DoubleSupplier;
 
 import org.usfirst.frc.team3464.robot.Robot;
 import org.usfirst.frc.team3464.robot.subsystems.SensorInput;
@@ -8,42 +9,37 @@ import org.usfirst.frc.team3464.robot.subsystems.SensorInput;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class Drive extends Command {
-	double startDist;
-	BooleanSupplier fin;
+	private double drive, start;
+	private DoubleSupplier distance;
+	private BooleanSupplier finished;
 
-    public Drive(BooleanSupplier fin) {
+    public Drive(double drive, DoubleSupplier distance, BooleanSupplier finished) {
         requires(Robot.si);
         requires(Robot.dl);
-        this.fin = fin;
+        this.drive = drive;
+        this.distance = distance;
+        this.finished = finished;
     }
 
-    protected void initialize() {
-        startDist = SensorInput.getEncoderDist();
-    }	
-    
-	public static BooleanSupplier encoderFin(double endDist) {
-		return () -> SensorInput.getEncoderDist() >= endDist;
-	}
-
-	public static BooleanSupplier ultraFin(double endDist) {
-		return () -> SensorInput.getUltraDist() <= endDist;
-	}
+	protected void initialize() {
+        this.start = distance.getAsDouble();
+    }
 
 	protected void execute() {
-		Robot.dl.driveStick(.5, .5);
+		Robot.dl.driveStick(drive, drive);
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return fin.getAsBoolean();
+		return finished.getAsBoolean();
 	}
 
 	protected void end() {
-		SensorInput.setPosition(
-			SensorInput.add.apply( SensorInput.getPosition(),
-			SensorInput.mul.apply( SensorInput.getGyroOrn(),
-			SensorInput.getEncoderDist() - startDist
-		) ) );
+		SensorInput.movePosition(
+			SensorInput.mul.apply(
+				SensorInput.getGyroOrientation(),
+				distance.getAsDouble() - start
+		) );
 	}
 
 	protected void interrupted() {

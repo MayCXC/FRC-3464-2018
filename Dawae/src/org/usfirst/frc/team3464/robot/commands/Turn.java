@@ -8,40 +8,25 @@ import org.usfirst.frc.team3464.robot.subsystems.SensorInput;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class Turn extends Command {
-	BooleanSupplier fin;
+	double drive;
+	private BooleanSupplier finished;
 
-    public Turn(BooleanSupplier fin) {
+    public Turn(double drive, BooleanSupplier finished) {
     	requires(Robot.si);
     	requires(Robot.dl);
-    	this.fin = fin;
+    	this.drive = drive;
+    	this.finished = finished;
     }
 
     protected void initialize() {
     }
 
-    /**
-    public static BooleanSupplier gyroCWFin(double endDir) {
-    	return () -> SensorInput.getGyroDir() >= endDir;
-    }
-    
-    public static BooleanSupplier gyroCCWFin(double endDir) {
-    	return () -> SensorInput.getGyroDir() <= endDir;
-    }
-	**/
-
-    public static BooleanSupplier gyroFin(double endDir) {
-    	return endDir >= 0
-    			? () -> SensorInput.getGyroDir() >= endDir
-    			: () -> SensorInput.getGyroDir() <= endDir
-    			;
-    }
-    
     protected void execute() {
-    	Robot.dl.driveStick(.5, -.5); // cw ? ccw
+    	Robot.dl.driveStick(drive,-drive);
     }
 
     protected boolean isFinished() {
-        return fin.getAsBoolean();
+        return finished.getAsBoolean();
     }
 
     protected void end() {

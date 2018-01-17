@@ -8,23 +8,20 @@ import org.usfirst.frc.team3464.robot.subsystems.SensorInput;
 
 public class Autonomous extends CommandGroup {
 	private String gsm;
-	public void setGSM(String gsm) {
-		this.gsm = gsm;
-	}
 
-	public Autonomous(RobotMap.Point startPoint) {
+	public Autonomous(RobotMap.Point start) {
 		if(gsm.length()==3)
-		switch(startPoint) {
+		switch(start) {
 			case A:
-				SensorInput.setPosition(RobotMap.field.get(RobotMap.Point.A));
+				SensorInput.movePosition(RobotMap.field.get(RobotMap.Point.A));
 				addSequential(new Goto(RobotMap.field.get(RobotMap.Point.D)));
 				break;
 			case B:
-				SensorInput.setPosition(RobotMap.field.get(RobotMap.Point.B));
+				SensorInput.movePosition(RobotMap.field.get(RobotMap.Point.B));
 				addSequential(new Goto(RobotMap.field.get(RobotMap.Point.E)));
 				break;
 			case C:
-				SensorInput.setPosition(RobotMap.field.get(RobotMap.Point.C));
+				SensorInput.movePosition(RobotMap.field.get(RobotMap.Point.C));
 				addSequential(new Goto(RobotMap.field.get(RobotMap.Point.F)));
 				break;
 			default:
@@ -34,7 +31,7 @@ public class Autonomous extends CommandGroup {
 
 	@Override
 	protected void initialize() {
-		setGSM(Robot.ds.getGameSpecificMessage());
+		gsm = Robot.ds.getGameSpecificMessage();
 	}
 
 	// Called repeatedly when this Command is scheduled to run

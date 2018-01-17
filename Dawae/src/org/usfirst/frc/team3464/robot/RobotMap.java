@@ -6,6 +6,7 @@ import java.util.function.BiConsumer;
 import edu.wpi.first.wpilibj.drive.Vector2d;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Ultrasonic;
@@ -51,10 +52,13 @@ public class RobotMap {
 
 	public static BiConsumer<Double,Double> driveMethod = drive::tankDrive;
 
+	public static Timer timer = new Timer();
 	public static Encoder encoder = new Encoder(encoderA, encoderB);
 	public static Ultrasonic ultra = new Ultrasonic(ultraP, ultraE);
 	public static ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 	static {
+		timer.reset();
+		timer.start();
 		encoder.setDistancePerPulse(dpp);
 		encoder.reset();
 		ultra.setDistanceUnits(Ultrasonic.Unit.kMillimeters);
