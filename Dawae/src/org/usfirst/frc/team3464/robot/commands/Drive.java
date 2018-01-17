@@ -3,36 +3,17 @@ package org.usfirst.frc.team3464.robot.commands;
 import java.util.function.DoublePredicate;
 import java.util.function.DoubleSupplier;
 
-import org.usfirst.frc.team3464.robot.Robot;
 import org.usfirst.frc.team3464.robot.subsystems.SensorInput;
 
-import edu.wpi.first.wpilibj.command.Command;
-
-public class Drive extends Command {
-	private double drive, start;
-	private DoubleSupplier distance;
-	private DoublePredicate finished;
-
+public class Drive extends Move {
+	private double start;
     public Drive(double drive, DoubleSupplier distance, DoublePredicate finished) {
-        requires(Robot.si);
-        requires(Robot.dl);
-        this.drive = drive;
-        this.distance = distance;
-        this.finished = finished;
+    	super(drive, drive, distance, finished);
     }
 
 	protected void initialize() {
         this.start = distance.getAsDouble();
     }
-
-	protected void execute() {
-		Robot.dl.driveStick(drive, drive);
-	}
-
-	@Override
-	protected boolean isFinished() {
-		return finished.test(distance.getAsDouble());
-	}
 
 	protected void end() {
 		SensorInput.movePosition(
@@ -40,9 +21,5 @@ public class Drive extends Command {
 				SensorInput.getGyroOrientation(),
 				distance.getAsDouble() - start
 		) );
-	}
-
-	protected void interrupted() {
-		end();
 	}
 }
