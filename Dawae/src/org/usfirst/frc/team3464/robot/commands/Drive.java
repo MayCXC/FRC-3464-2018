@@ -1,6 +1,6 @@
 package org.usfirst.frc.team3464.robot.commands;
 
-import java.util.function.BooleanSupplier;
+import java.util.function.DoublePredicate;
 import java.util.function.DoubleSupplier;
 
 import org.usfirst.frc.team3464.robot.Robot;
@@ -11,9 +11,9 @@ import edu.wpi.first.wpilibj.command.Command;
 public class Drive extends Command {
 	private double drive, start;
 	private DoubleSupplier distance;
-	private BooleanSupplier finished;
+	private DoublePredicate finished;
 
-    public Drive(double drive, DoubleSupplier distance, BooleanSupplier finished) {
+    public Drive(double drive, DoubleSupplier distance, DoublePredicate finished) {
         requires(Robot.si);
         requires(Robot.dl);
         this.drive = drive;
@@ -31,7 +31,7 @@ public class Drive extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		return finished.getAsBoolean();
+		return finished.test(distance.getAsDouble());
 	}
 
 	protected void end() {

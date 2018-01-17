@@ -1,20 +1,22 @@
 package org.usfirst.frc.team3464.robot.commands;
 
-import java.util.function.BooleanSupplier;
+import java.util.function.DoublePredicate;
+import java.util.function.DoubleSupplier;
 
 import org.usfirst.frc.team3464.robot.Robot;
-import org.usfirst.frc.team3464.robot.subsystems.SensorInput;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 public class Turn extends Command {
 	double drive;
-	private BooleanSupplier finished;
+	private DoubleSupplier direction;
+	private DoublePredicate finished;
 
-    public Turn(double drive, BooleanSupplier finished) {
+    public Turn(double drive, DoubleSupplier direction, DoublePredicate finished) {
     	requires(Robot.si);
     	requires(Robot.dl);
     	this.drive = drive;
+    	this.direction = direction;
     	this.finished = finished;
     }
 
@@ -26,7 +28,7 @@ public class Turn extends Command {
     }
 
     protected boolean isFinished() {
-        return finished.getAsBoolean();
+        return finished.test(direction.getAsDouble());
     }
 
     protected void end() {
