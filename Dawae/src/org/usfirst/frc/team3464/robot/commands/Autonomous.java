@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 import org.usfirst.frc.team3464.robot.Robot;
 import org.usfirst.frc.team3464.robot.RobotMap;
-import org.usfirst.frc.team3464.robot.subsystems.SensorInput;
+import org.usfirst.frc.team3464.robot.subsystems.GPS;
 
 public class Autonomous extends CommandGroup {
 	private String gsm;
@@ -13,15 +13,15 @@ public class Autonomous extends CommandGroup {
 		if(gsm.length()==3)
 		switch(start) {
 			case A:
-				SensorInput.movePosition(RobotMap.field.get(RobotMap.Point.A));
+				GPS.move(RobotMap.field.get(RobotMap.Point.A));
 				addSequential(new Goto(RobotMap.field.get(RobotMap.Point.D)));
 				break;
 			case B:
-				SensorInput.movePosition(RobotMap.field.get(RobotMap.Point.B));
+				GPS.move(RobotMap.field.get(RobotMap.Point.B));
 				addSequential(new Goto(RobotMap.field.get(RobotMap.Point.E)));
 				break;
 			case C:
-				SensorInput.movePosition(RobotMap.field.get(RobotMap.Point.C));
+				GPS.move(RobotMap.field.get(RobotMap.Point.C));
 				addSequential(new Goto(RobotMap.field.get(RobotMap.Point.F)));
 				break;
 			default: break;

@@ -1,15 +1,14 @@
 package org.usfirst.frc.team3464.robot.subsystems;
 
-import org.usfirst.frc.team3464.robot.RobotMap;
+import java.util.function.BiConsumer;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class DriveLine extends Subsystem {
-	public void driveStick(double l, double r) {
-		RobotMap.driveMethod.accept(l, r);
+	public void driveDD(BiConsumer<Double,Double> driveMethod, double l, double r) {
+		driveMethod.accept(l, r);
 	}
-	
-	public void initDefaultCommand() {
-		// setDefaultCommand(new MySpecialCommand());
-	}
+
+	@Override
+	protected void initDefaultCommand() {	}
 }

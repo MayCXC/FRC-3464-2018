@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 public class Robot extends TimedRobot {
 	public static DriveLine dl;
 	public static CubeLift cl;
-	public static SensorInput si;
+	public static GPS gps;
 	public static OI oi;
 	public static DriverStation ds;
 	public static SendableChooser<Command> ac;
@@ -22,7 +22,7 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		dl = new DriveLine();
 		cl = new CubeLift();
-		si = new SensorInput();
+		gps = new GPS();
 		oi = new OI();
 		ds = DriverStation.getInstance();
 
@@ -62,7 +62,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		dl.driveStick(oi.leftStick.getX(), oi.rightStick.getX());
+		dl.driveDD(RobotMap.driveMethodTeleop, oi.leftStick.getX(), oi.rightStick.getX());
 	}
 
 	@Override

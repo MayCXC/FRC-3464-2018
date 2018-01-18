@@ -50,7 +50,9 @@ public class RobotMap {
 		)
 	);
 
-	public static BiConsumer<Double,Double> driveMethod = drive::tankDrive;
+	public static BiConsumer<Double,Double>
+		driveMethodTeleop = drive::tankDrive,
+		driveMethodAuto = drive::arcadeDrive;
 
 	public static Timer timer = new Timer();
 	public static Encoder encoder = new Encoder(encoderA, encoderB);

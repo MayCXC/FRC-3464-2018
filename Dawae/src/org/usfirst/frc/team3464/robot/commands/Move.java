@@ -1,42 +1,34 @@
 package org.usfirst.frc.team3464.robot.commands;
 
-import java.util.function.DoublePredicate;
 import java.util.function.DoubleSupplier;
 
 import org.usfirst.frc.team3464.robot.Robot;
+import edu.wpi.first.wpilibj.command.PIDCommand;
 
-import edu.wpi.first.wpilibj.command.Command;
+public abstract class Move extends PIDCommand {
+	protected DoubleSupplier pidGet;
+	protected double setpoint;
 
-public abstract class Move extends Command {
-	private double left, right;
-	DoubleSupplier distance;
-	private DoublePredicate finished;
-
-    public Move(double left, double right, DoubleSupplier distance, DoublePredicate finished) {
-    	requires(Robot.si);
+    public Move(DoubleSupplier pidGet, double setpoint) {
+    	super(1.0, 0.0, 0.0);
     	requires(Robot.dl);
-    	
-    	this.left = left;
-		this.right = right;
-		this.distance = distance;
-		this.finished = finished;
+    	requires(Robot.gps);
+
+		this.pidGet = pidGet;
+		this.setpoint = setpoint;
     }
 
     protected void initialize() {
+		getPIDController().setContinuous(false);
+		getPIDController().setOutputRange(-1.0, 1.0);
+    	getPIDController().setSetpoint(setpoint);
     }
-
-    protected void execute() {
-    	Robot.dl.driveStick(left, right);
+    
+    protected double returnPIDInput() {
+    	return pidGet.getAsDouble();
     }
 
     protected boolean isFinished() {
-		return finished.test(distance.getAsDouble());
-    }
-
-    protected void end() {
-    }
-
-    protected void interrupted() {
-    	end();
-    }
+		return getPIDController().onTarget();
+    }   
 }
