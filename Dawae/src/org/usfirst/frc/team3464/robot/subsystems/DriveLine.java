@@ -11,7 +11,7 @@ public class DriveLine extends Subsystem {
 
 	public double zRotation(double angle) {
 		double rad = (angle-RobotMap.gyro.getAngle()) * Math.PI / 180.0;
-		return Math.atan( Math.tan( rad ) ) * 2 / Math.PI;
+		return Math.atan( Math.tan( rad/2 ) ) * 2 / Math.PI; // 2/pi arcsin 2/pi arctan k tan x/2
 	}
 
 	@Override

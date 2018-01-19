@@ -23,7 +23,6 @@ public class Robot extends TimedRobot {
 		cl = new CubeLift();
 		oi = new OI();
 		ds = DriverStation.getInstance();
-
 		ac = new SendableChooser<>();
 		ac.addDefault("Left", new Autonomous('A'));
 		ac.addObject("Middle", new Autonomous('B'));
