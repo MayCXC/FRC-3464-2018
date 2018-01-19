@@ -61,10 +61,5 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		dl.getDrive().tankDrive(oi.leftStick.getX(), oi.rightStick.getX());
-	}
-
-	@Override
-	public void testPeriodic() {
 	}
 }

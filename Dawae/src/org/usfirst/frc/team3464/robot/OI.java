@@ -11,7 +11,7 @@ public class OI /** Operator Interface **/ {
 	// Joystick stick = new Joystick(port);
 	// Button button = new JoystickButton(stick, buttonNumber);
 
-	Joystick
+	public Joystick
 	leftStick = new Joystick(RobotMap.leftStickPort),
 	rightStick = new Joystick(RobotMap.rightStickPort);
 

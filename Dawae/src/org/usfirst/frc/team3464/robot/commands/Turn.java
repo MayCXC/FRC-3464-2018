@@ -5,12 +5,17 @@ import java.util.function.DoubleSupplier;
 import org.usfirst.frc.team3464.robot.Robot;
 
 public class Turn extends Move {
-    public Turn(DoubleSupplier compass, double direction) {
-    	super(compass, direction);
+    public Turn(DoubleSupplier compass, double angle) {
+    	super(Robot.dl.drive::arcadeDrive, compass, compass.getAsDouble() + angle);
     }
 
 	@Override
-	protected void execute() {
-		Robot.dl.getDrive().arcadeDrive(0.0, Robot.dl.zRotation(finished));
+	protected double left() {
+		return 0.0;
+	}
+
+	@Override
+	protected double right() {
+		return Robot.dl.zRotation(finished);
 	}
 }
