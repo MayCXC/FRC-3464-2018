@@ -1,9 +1,5 @@
 package org.usfirst.frc.team3464.robot;
 
-import java.util.EnumMap;
-import java.util.function.BiConsumer;
-
-import edu.wpi.first.wpilibj.drive.Vector2d;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Timer;
@@ -28,17 +24,6 @@ public class RobotMap {
 	public static double
 		dpp = 1.0;
 
-	public static enum Point { A, B, C, D, E, F }
-	public static EnumMap<Point,Vector2d> field = new EnumMap<Point,Vector2d>(Point.class);
-	static {
-		field.put(Point.A, new Vector2d(0.0, 0.0));
-		field.put(Point.B, new Vector2d(0.0, 0.0));
-		field.put(Point.C, new Vector2d(0.0, 0.0));
-		field.put(Point.D, new Vector2d(0.0, 0.0));
-		field.put(Point.E, new Vector2d(0.0, 0.0));
-		field.put(Point.F, new Vector2d(0.0, 0.0));
-	}
-
 	public static DifferentialDrive drive = new DifferentialDrive(
 		new SpeedControllerGroup(
 			new Spark(RobotMap.leftBackMotor),
@@ -49,11 +34,6 @@ public class RobotMap {
 			new Spark(RobotMap.rightFrontMotor)
 		)
 	);
-
-	public static BiConsumer<Double,Double>
-		driveMethodTeleop = drive::tankDrive,
-		driveMethodAuto = drive::arcadeDrive;
-
 	public static Timer timer = new Timer();
 	public static Encoder encoder = new Encoder(encoderA, encoderB);
 	public static Ultrasonic ultra = new Ultrasonic(ultraP, ultraE);

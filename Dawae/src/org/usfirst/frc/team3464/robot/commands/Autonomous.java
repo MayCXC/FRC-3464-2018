@@ -4,27 +4,16 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 import org.usfirst.frc.team3464.robot.Robot;
 import org.usfirst.frc.team3464.robot.RobotMap;
-import org.usfirst.frc.team3464.robot.subsystems.GPS;
 
 public class Autonomous extends CommandGroup {
-	private String gsm;
+	private String gsm = "";
 
-	public Autonomous(RobotMap.Point start) {
-		if(gsm.length()==3)
+	public Autonomous(char start) {
+		if(gsm.length()==3 || true)
 		switch(start) {
-			case A:
-				GPS.move(RobotMap.field.get(RobotMap.Point.A));
-				addSequential(new Goto(RobotMap.field.get(RobotMap.Point.D)));
-				break;
-			case B:
-				GPS.move(RobotMap.field.get(RobotMap.Point.B));
-				addSequential(new Goto(RobotMap.field.get(RobotMap.Point.E)));
-				break;
-			case C:
-				GPS.move(RobotMap.field.get(RobotMap.Point.C));
-				addSequential(new Goto(RobotMap.field.get(RobotMap.Point.F)));
-				break;
-			default: break;
+		default:
+			addSequential(new Drive(RobotMap.timer::get, 5.0) );
+			break;
 		}
 	}
 

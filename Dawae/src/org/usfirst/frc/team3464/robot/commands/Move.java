@@ -3,32 +3,27 @@ package org.usfirst.frc.team3464.robot.commands;
 import java.util.function.DoubleSupplier;
 
 import org.usfirst.frc.team3464.robot.Robot;
-import edu.wpi.first.wpilibj.command.PIDCommand;
 
-public abstract class Move extends PIDCommand {
-	protected DoubleSupplier pidGet;
-	protected double setpoint;
+import edu.wpi.first.wpilibj.command.Command;
 
-    public Move(DoubleSupplier pidGet, double setpoint) {
-    	super(1.0, 0.0, 0.0);
+public abstract class Move extends Command {
+	protected DoubleSupplier progress;
+	protected double finished;
+
+    public Move(DoubleSupplier progress, double finished) {
     	requires(Robot.dl);
-    	requires(Robot.gps);
 
-		this.pidGet = pidGet;
-		this.setpoint = setpoint;
+		this.progress = progress;
+		this.finished = finished;
     }
 
-    protected void initialize() {
-		getPIDController().setContinuous(false);
-		getPIDController().setOutputRange(-1.0, 1.0);
-    	getPIDController().setSetpoint(setpoint);
+    @Override
+    protected void execute() {
+    	Robot.dl.getDrive().arcadeDrive(0.5, 0.0);
     }
     
-    protected double returnPIDInput() {
-    	return pidGet.getAsDouble();
-    }
-
+    @Override
     protected boolean isFinished() {
-		return getPIDController().onTarget();
+		return progress.getAsDouble() >= finished;
     }   
 }

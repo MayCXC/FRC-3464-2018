@@ -1,12 +1,17 @@
 package org.usfirst.frc.team3464.robot.subsystems;
 
-import java.util.function.BiConsumer;
+import org.usfirst.frc.team3464.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 public class DriveLine extends Subsystem {
-	public void driveDD(BiConsumer<Double,Double> driveMethod, double l, double r) {
-		driveMethod.accept(l, r);
+	public DifferentialDrive getDrive() {
+		return RobotMap.drive;
+	}
+
+	public double zRotation(double angle) {
+		return Math.atan( Math.tan( (angle-RobotMap.gyro.getAngle()) * Math.PI / 180.0 ) ) * 2 / Math.PI;
 	}
 
 	@Override

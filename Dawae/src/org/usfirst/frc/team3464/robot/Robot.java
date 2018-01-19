@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj.DriverStation;
 public class Robot extends TimedRobot {
 	public static DriveLine dl;
 	public static CubeLift cl;
-	public static GPS gps;
 	public static OI oi;
 	public static DriverStation ds;
 	public static SendableChooser<Command> ac;
@@ -22,14 +21,13 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		dl = new DriveLine();
 		cl = new CubeLift();
-		gps = new GPS();
 		oi = new OI();
 		ds = DriverStation.getInstance();
 
 		ac = new SendableChooser<>();
-		ac.addDefault("Left", new Autonomous(RobotMap.Point.A));
-		ac.addObject("Middle", new Autonomous(RobotMap.Point.B));
-		ac.addObject("Right", new Autonomous(RobotMap.Point.C));
+		ac.addDefault("Left", new Autonomous('A'));
+		ac.addObject("Middle", new Autonomous('B'));
+		ac.addObject("Right", new Autonomous('C'));
 		SmartDashboard.putData("Starting position", ac);
 	}
 
@@ -45,6 +43,7 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void autonomousInit() {
+		RobotMap.gyro.calibrate();
 		ai = ac.getSelected();
 		if (ai != null) ai.start();
 	}
@@ -62,7 +61,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		dl.driveDD(RobotMap.driveMethodTeleop, oi.leftStick.getX(), oi.rightStick.getX());
+		dl.getDrive().tankDrive(oi.leftStick.getX(), oi.rightStick.getX());
 	}
 
 	@Override
