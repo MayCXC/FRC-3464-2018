@@ -15,25 +15,10 @@ public class Autonomous extends CommandGroup {
 			addSequential(new Drive(RobotMap.timer::get, 8.0, .55) );
 	}
 
+	/**
 	@Override
 	protected void initialize() {
 		// gsm = Robot.ds.getGameSpecificMessage();
 	}
-
-	@Override
-	protected void execute() {
-	}
-
-	@Override
-	protected boolean isFinished() {
-		return false; // return !Robot.ds.isAutonomous();
-	}
-
-	@Override
-	protected void end() {
-	}
-
-	@Override
-	protected void interrupted() {
-	}
+	**/
 }
