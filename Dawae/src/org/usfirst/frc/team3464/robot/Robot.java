@@ -42,7 +42,6 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void autonomousInit() {
-		RobotMap.gyro.calibrate();
 		ai = ac.getSelected();
 		if (ai != null) ai.start();
 	}

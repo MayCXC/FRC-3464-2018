@@ -3,6 +3,7 @@ package org.usfirst.frc.team3464.robot.commands;
 import java.util.function.DoubleSupplier;
 
 import org.usfirst.frc.team3464.robot.Robot;
+import org.usfirst.frc.team3464.robot.RobotMap;
 
 public class Turn extends Move {
     public Turn(DoubleSupplier compass, double angle) {
@@ -17,5 +18,11 @@ public class Turn extends Move {
 	@Override
 	protected double right() {
 		return Robot.dl.zRotation(finished);
+	}
+
+	@Override
+	protected boolean isFinished() {
+		double cut = 1.0;
+		return super.isFinished() && Math.abs( RobotMap.gyro.getRate() ) <= cut;
 	}
 }

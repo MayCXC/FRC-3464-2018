@@ -11,12 +11,13 @@ public class Autonomous extends CommandGroup {
 
 	public Autonomous(char start) {
 		SmartDashboard.putString("GSM", gsm);
-		addSequential(new Drive(RobotMap.timer::get, 5.0, .5) );
+		if(start == 'A' || start == 'B' || start == 'C')
+			addSequential(new Drive(RobotMap.timer::get, 8.0, .55) );
 	}
 
 	@Override
 	protected void initialize() {
-		gsm = Robot.ds.getGameSpecificMessage();
+		// gsm = Robot.ds.getGameSpecificMessage();
 	}
 
 	@Override
@@ -25,7 +26,7 @@ public class Autonomous extends CommandGroup {
 
 	@Override
 	protected boolean isFinished() {
-		return !Robot.ds.isAutonomous();
+		return false; // return !Robot.ds.isAutonomous();
 	}
 
 	@Override
