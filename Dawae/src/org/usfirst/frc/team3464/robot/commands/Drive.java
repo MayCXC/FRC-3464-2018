@@ -7,36 +7,32 @@ import org.usfirst.frc.team3464.robot.RobotMap;
 
 public class Drive extends Move {
 	private double angle;
-	private DoubleSupplier l, r;
+	private DoubleSupplier speed, rotation;
 
-    public Drive(DoubleSupplier odometer, double distance, double speed) {
-    	super(Robot.dl.drive::arcadeDrive, odometer, odometer.getAsDouble() + distance);
-    	this.l = () -> speed;
-    	this.r = () -> Robot.dl.zRotation(angle);
-    }
-
-    public Drive() {
-    	super(Robot.dl.drive::tankDrive, () -> 0.0, 0.0);
-    	this.l = Robot.oi.leftStick::getX;
-    	this.r = Robot.oi.rightStick::getX;
+    public Drive(DoubleSupplier odometer, double distance, DoubleSupplier speed) {
+    	super(odometer, distance);
+    	this.speed = speed;
+    	this.rotation = () -> Robot.driveLine.zRotation(angle);
     }
 
     @Override
     protected void initialize() {
+    	super.initialize();
     	this.angle = RobotMap.gyro.getAngle();
     }
 
     @Override
-    protected double left() {
-    	return l.getAsDouble();
+    protected double getSpeed() {
+    	return speed.getAsDouble();    	
     }
 
     @Override
-    protected double right() {
-    	return r.getAsDouble();
+    protected double getZRotation() {
+    	return rotation.getAsDouble();        
     }
 
-	@Override
-	protected void end() {
-	}
+    @Override
+    protected boolean isFinished() {
+		return progress.getAsDouble() >= finished;
+    }
 }

@@ -1,35 +1,32 @@
 package org.usfirst.frc.team3464.robot.commands;
 
-import java.util.function.BiConsumer;
 import java.util.function.DoubleSupplier;
 
 import org.usfirst.frc.team3464.robot.Robot;
+import org.usfirst.frc.team3464.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 public abstract class Move extends Command {
-	protected BiConsumer<Double,Double> method;
 	protected DoubleSupplier progress;
 	protected double finished;
 
-    public Move(BiConsumer<Double,Double> method, DoubleSupplier progress, double finished) {
-    	requires(Robot.dl);
+    public Move(DoubleSupplier progress, double finished) {
+    	requires(Robot.driveLine);
 
-    	this.method = method;
 		this.progress = progress;
 		this.finished = finished;
     }
+    protected abstract double getSpeed();
+    protected abstract double getZRotation();
 
-    protected abstract double left();
-    protected abstract double right();
+    @Override
+    protected void initialize() {
+    	this.finished += progress.getAsDouble();
+    }
 
     @Override
     protected void execute() {
-    	method.accept(left(), right());
+    	Robot.operatorInterface.arcade(getSpeed(), getZRotation());
     }
-    
-    @Override
-    protected boolean isFinished() {
-		return progress.getAsDouble() >= finished;
-    }   
 }

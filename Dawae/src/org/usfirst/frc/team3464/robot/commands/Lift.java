@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class Lift extends Command {
 
     public Lift() {
-    	requires(Robot.cl);
+    	requires(Robot.cubeLift);
     }
 
     protected void initialize() {
