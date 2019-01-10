@@ -3,7 +3,6 @@ package org.usfirst.frc.team3464.robot.commands;
 import java.util.function.DoubleSupplier;
 
 import org.usfirst.frc.team3464.robot.Robot;
-import org.usfirst.frc.team3464.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -27,6 +26,6 @@ public abstract class Move extends Command {
 
     @Override
     protected void execute() {
-    	Robot.operatorInterface.arcade(getSpeed(), getZRotation());
+    	Robot.driveLine.arcade(getSpeed(), getZRotation());
     }
 }

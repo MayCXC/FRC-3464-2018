@@ -1,14 +1,10 @@
 package org.usfirst.frc.team3464.robot;
 
-import org.opencv.core.Core;
-import org.opencv.core.Mat;
 import org.usfirst.frc.team3464.robot.commands.*;
 import org.usfirst.frc.team3464.robot.subsystems.*;
 
-import edu.wpi.cscore.*;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
-
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -16,44 +12,60 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends TimedRobot {
-	public static DriveLine driveLine;
-	public static CubeLift cubeLift;
-	public static OperatorInterface operatorInterface;
-	public static DriverStation driverStation;
+	public static final DriveLine driveLine = new DriveLine();
+	public static final Elevator elevator = new Elevator();
+	public static final Claw claw = new Claw();
 
-	public SendableChooser<Command> autoChooser, teleChooser;
-	public Command autoCommand = null, teleCommand = null;
+	public static OperatorInterface operatorInterface;
+
+	SendableChooser<Autonomous> autoChooser;
+	Command autoCommand = null;
+
+	SendableChooser<Teleoperated> teleChooser;
+	Command teleCommand = null;
+	
+	SendableChooser<Boolean> killCompressor;
 
 	@Override
 	public void robotInit() {
-		driveLine = new DriveLine();
-		cubeLift = new CubeLift();
 		operatorInterface = new OperatorInterface();
-		driverStation = DriverStation.getInstance();
-		autoChooser = new SendableChooser<>();
-		autoChooser.addDefault("Left", new Autonomous('A'));
-		autoChooser.addObject("Middle", new Autonomous('B'));
-		autoChooser.addObject("Right", new Autonomous('C'));
-		SmartDashboard.putData("Autonomous", autoChooser);
-		teleChooser = new SendableChooser<>();
-		teleChooser.addDefault("Tank", new Teleoperated(operatorInterface.teleTank));
-		teleChooser.addObject("Arcade", new Teleoperated(operatorInterface.teleArcade));
-		SmartDashboard.putData("Teleoperated", teleChooser);
 
-		new Thread( () -> {
-			UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-			camera.setResolution(640, 480);
-			CvSink sink = CameraServer.getInstance().getVideo();
-			CvSource source = CameraServer.getInstance().putVideo("FPV", 640, 480);
-			Mat sinkMat = new Mat(), sourceMat = new Mat();
-			while( !Thread.interrupted() ) {
-				sink.grabFrame(sourceMat);
-				Core.flip(sourceMat, sinkMat, -1);
-				source.putFrame(sinkMat);
-			}
-		} ).start();
+		autoChooser = new SendableChooser<>();
+		autoChooser.addDefault("Left", new Autonomous('L'));
+		autoChooser.addObject("Middle", new Autonomous('M'));
+		autoChooser.addObject("Right", new Autonomous('R'));
+		autoChooser.addObject("Left half cross", new Autonomous('l'));
+		autoChooser.addObject("Right half cross", new Autonomous('r'));
+		SmartDashboard.putData("Autonomous", autoChooser);
+
+		teleChooser = new SendableChooser<>();
+		teleChooser.addDefault("Tank", new Teleoperated(driveLine.teleTank));
+		teleChooser.addObject("Tank180", new Teleoperated(driveLine.teleTank180));
+		teleChooser.addObject("Arcade", new Teleoperated(driveLine.teleArcade));
+		SmartDashboard.putData("Teleoperated", teleChooser);
+		
+		killCompressor = new SendableChooser<>();
+		
+		killCompressor.addDefault("Compressor on", true);
+		killCompressor.addObject("Compressor off", false);
+		SmartDashboard.putData("Kill Compressor", killCompressor);
+
+		new Thread( CameraServer.getInstance()::startAutomaticCapture ).start();
 	}
 
+	@Override
+	public void robotPeriodic() {
+		SmartDashboard.putBoolean("WINCH LOW", RobotMap.elevatorLow.get());
+		SmartDashboard.putBoolean("WINCH HIGH", RobotMap.elevatorHigh.get());
+		SmartDashboard.putNumber("LEFT ENCODER", RobotMap.leftEncoder.getDistance());
+		SmartDashboard.putNumber("RIGHT ENCODER", RobotMap.rightEncoder.getDistance());
+    	SmartDashboard.putBoolean("REGULATOR", RobotMap.compressor.getPressureSwitchValue());
+    	SmartDashboard.putNumber("PRESSURE", RobotMap.pressure.getVoltage()*111.5/2.54);
+		SmartDashboard.putString("MESSAGE", DriverStation.getInstance().getGameSpecificMessage());
+		SmartDashboard.putNumber("LIFT", RobotMap.claw.getSelectedSensorPosition(0));
+		// SmartDashboard.putNumber("STICK", operatorInterface.clawStick.getY());
+		SmartDashboard.putBoolean("CLEAR", RobotMap.clawSwitch.get());
+		}
 	
 	@Override
 	public void disabledInit() {
@@ -63,6 +75,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		Scheduler.getInstance().add(new Grab(true));
 	}
 
 	@Override
@@ -79,13 +92,20 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopInit() {
 		if (autoCommand != null) autoCommand.cancel();
-		teleCommand = teleChooser.getSelected();
+		Scheduler.getInstance().removeAll();
 	}
 
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		teleCommand = teleChooser.getSelected();
-		if (teleCommand != null) driveLine.setDefaultCommand(teleCommand);
+		if (teleCommand != null) {
+			driveLine.setDefaultCommand(teleCommand);
+			elevator.setDefaultCommand(teleCommand);
+			claw.setDefaultCommand(teleCommand);
+		}
+
+		if(killCompressor.getSelected() != null)
+			RobotMap.compressor.setClosedLoopControl(killCompressor.getSelected());
 	}
 }

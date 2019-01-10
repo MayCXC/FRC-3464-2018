@@ -25,15 +25,21 @@ public class Turn extends Move {
 	
 	@Override
 	protected boolean isFinished() {
-		double cut = 1.0, pma = 1.0;
+		double
+			cut = 1.0,
+			pma = 2.0;
+		boolean
+			oriented = Math.abs( progress.getAsDouble() - finished ) <= pma,
+			settled = Math.abs( RobotMap.gyro.getRate() ) <= cut;
 
-		if(Math.abs( progress.getAsDouble() - finished ) <= pma) {
-			if(Math.abs( RobotMap.gyro.getRate() ) <= cut)
+		if(oriented) {
+			if(settled)
 				return true;
 			extra = 0.0;
 		}
-		else if(Math.abs( RobotMap.gyro.getRate() ) <= cut)
+		else if(settled) {
 			extra += .01;
+		}
 
 		return false;
 	}
