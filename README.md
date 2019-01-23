@@ -51,7 +51,7 @@ the game started. Programming them all this way could have easily taken thousand
 of the resources wpilib and java 8 provided.
 
 The wpilib Command Scheduler both greatly simplified our auto code, and added the functionality of multitasking during auto.
-Instead of being buried endless nested loops and recursion, the auto procedures were now clearly laid out in sequences of
+Instead of being buried in endless nested loops and recursion, the auto procedures were now clearly laid out in sequences of
 reusable commands. This meant that it was easy to have the robot lift its cube and start driving at the same time. Furthermore,
 java 8 functional interfaces allowed parts of commands to be decoupled from their classes, which allowed us to use the same
 class to perform similar tasks.
