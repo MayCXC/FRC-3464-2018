@@ -45,7 +45,7 @@ technique.
 
 ### Analysis: Pros
 
-It became obvious early on that last year's method of procedural programming wasn't going to cut it for this year's auto. One
+It was clear early on that last year's method of procedural programming wasn't going to cut it for this year's auto. One
 auto already took too many lines of code for me to grok, and there would be at least six different autos to choose from when
 the game started. Programming them all this way could have easily taken thousands of lines of code, and didn't take advantage
 of the resources wpilib and java 8 provided.
