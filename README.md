@@ -54,9 +54,11 @@ The wpilib Command Scheduler both greatly simplified our auto code, and added th
 Instead of being buried endless nested loops and recursion, the auto procedures were now clearly laid out in sequences of
 reusable commands. This meant that it was easy to have the robot lift its cube and start driving at the same time. Furthermore,
 java 8 functional interfaces allowed parts of commands to be decoupled from their classes, which allowed us to use the same
-class to perform similar tasks. For example, the Drive command can move the robot for either a timer duration or an encoder
-distance, using the same code. We used encoders when driving across the field, where precise distances mattered, but a timer 
-when driving into a wall, to avoid delaying the auto while the encoders could not reach their target distance.
+class to perform similar tasks.
+
+For example, the Drive command can move the robot for either a timer duration or an encoder distance, using the same code. We
+used encoders when driving across the field, where precise distances mattered, but a timer when driving into a wall, to avoid
+delaying the auto while the encoders could not reach their target distance.
 
 ### Analysis: Cons
 
@@ -76,7 +78,7 @@ button presses. We didn't use this feature extensively, as we wanted our teleop 
 
 An unexplained glitch prevented the autonomous code from starting in our first seven competition matches. Restarting our robot
 after it connected to the FMS fixed this glitch for an unknown reason, but by the time I randomly guessed this would work around
-the issue the damage was done. This problem never occurred when we tested our robot with our own driver station. The autonomous
-code successfully dropped our cube into our scale every time it ran, and we successfully added more functionality to it during the
-competition. We ended up competing in the final rounds of two regional competitions. Overall it was a good learning experience,
-but a disappointing outcome.
+the issue the damage was done. This problem never occurred when we tested our robot with our own driver station.
+The autonomous code successfully dropped our cube into our scale every time it ran, and we successfully added more functionality
+to it during the competition. We ended up competing in the final rounds of two regional competitions. Overall it was a good
+learning experience, but a disappointing outcome.
