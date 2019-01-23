@@ -73,7 +73,7 @@ remapping various components.
 Okay: The sample also provided an OI class that managed inputs, which included several ways of running commands in response to
 button presses. We didn't use this feature extensively, as we wanted our teleop code to have precise control over the robot.
 
-# Result: Could have done better
+# Result: Could have done better :(
 
 An unexplained glitch prevented the autonomous code from starting in our first seven competition matches. Restarting our robot
 after it connected to the FMS fixed this glitch for an unknown reason, but by the time I randomly guessed this would work around
