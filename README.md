@@ -62,7 +62,7 @@ timer when driving into a wall, to avoid delaying the auto while the encoders co
 ### Analysis: Cons
 
 The entry barrier when reading command based code you didn't write is a little higher; at any time in execution, active code
-might be spread between the operator interface, the robot map, the game mode methods, and multiple commands. 
+might be spread between the operator interface, the robot map, robot and subsystem methods, and multiple commands. 
 
 ## Implementation: Hardware mapping and the Operator interface
 
