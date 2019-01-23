@@ -79,6 +79,7 @@ button presses. We didn't use this feature extensively, as we wanted our teleop 
 An unexplained glitch prevented the autonomous code from starting in our first seven competition matches. Restarting our robot
 after it connected to the FMS fixed this glitch for an unknown reason, but by the time I randomly guessed this would work around
 the issue the damage was done. This problem never occurred when we tested our robot with our own driver station.
+
 The autonomous code successfully dropped our cube into our scale every time it ran, and we successfully added more functionality
 to it during the competition. We ended up competing in the final rounds of two regional competitions. Overall it was a good
 learning experience, but a disappointing outcome.
