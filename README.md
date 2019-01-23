@@ -54,7 +54,7 @@ The wpilib Command Scheduler both greatly simplified our auto code, and added th
 Instead of being buried in endless nested loops and recursion, the auto procedures were now clearly laid out in sequences of
 reusable commands. This meant that it was easy to have the robot lift its cube and start driving at the same time.
 
-Furthermore, java 8 functional interfaces allowed parts of commands to be decoupled from their classes, which allowed us to use
+Java 8 functional interfaces allowed parts of commands to be decoupled from their classes, which allowed us to use
 the same class to perform similar tasks. For example, the Drive command can move the robot for either a timer duration or an
 encoder distance, using the same code. We used encoders when driving across the field, where precise distances mattered, but a
 timer when driving into a wall, to avoid delaying the auto while the encoders could not reach their target distance.
