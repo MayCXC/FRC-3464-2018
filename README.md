@@ -62,7 +62,7 @@ timer when driving into a wall, to avoid delaying the auto while the encoders co
 ### Analysis: Cons
 
 The entry barrier when reading command based code you didn't write is a little higher; at any time in execution, active code
-might be spread between the operator interface, the robot map, robot and subsystem methods, and multiple commands. 
+might be spread between the operator interface, the robot map, robot and subsystem methods, and multiple commands. Overriding the entry point into the autonomous command to read FMS data was also probably the cause of a glitch that cost us a bunch of ranking points.
 
 ## Implementation: Hardware mapping and the Operator interface
 
