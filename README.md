@@ -1,4 +1,4 @@
-# FRC_3464_2018
+# FRC-3464-2018
 
 FIRST team 3464's robot code. This was code I wrote for team SimCity when I was a senior at Simsbury High School. It deploys to
 a RoboRIO from a laptop, and uses four USB joysticks as operator input. Unlike past years, the autonomous period performs
