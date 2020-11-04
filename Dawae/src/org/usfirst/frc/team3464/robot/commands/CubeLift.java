@@ -6,7 +6,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class CubeLift extends Command {
+public class CubeLift extends Command { // Move the lift into position and close or open the claw
 	double position;
 	
     public CubeLift(double position) {
