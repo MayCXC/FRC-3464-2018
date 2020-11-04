@@ -8,10 +8,10 @@ import org.usfirst.frc.team3464.robot.RobotMap;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 
-public class Teleoperated extends InstantCommand {
+public class Teleoperated extends InstantCommand { // Controls robot during tele
 	private Consumer<Void> driveMethod;
 
-    public Teleoperated(Consumer<Void> driveMethod) {
+    public Teleoperated(Consumer<Void> driveMethod) { // Use chosen drive mode
         super();
         requires(Robot.driveLine);
         requires(Robot.elevator);
@@ -21,7 +21,7 @@ public class Teleoperated extends InstantCommand {
     }
     
     @Override
-    protected void execute() {
+    protected void execute() { // Move motors, winch, lift, claw, based on inputs
     	Joystick
     		leftStick = Robot.operatorInterface.leftStick,
     		rightStick = Robot.operatorInterface.rightStick,
