@@ -8,7 +8,7 @@ import org.usfirst.frc.team3464.robot.RobotMap;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class DriveLine extends Subsystem { // Controls robot movement
-	public double zRotation(double angle) { // Utility function to find shortest path between two between angles
+	public double zRotation(double angle) { // Utility function to find shortest path between two between angles with variable smoothness
 		double
 			rad = (angle-RobotMap.gyro.getAngle()) * Math.PI / 180.0,
 			radnorm = 2.0 / Math.PI,
