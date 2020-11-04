@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 
-public class RobotMap {
+public class RobotMap { // Central list of sensor ports and parameters for convenience
 	 public static int
 		leftStickPort = 0,
 		rightStickPort = 1,
@@ -59,10 +59,10 @@ public class RobotMap {
 		ultraP = 0,
 		ultraE = 1;
 	public static double
-		dpp = 0.16,
+		dpp = 0.16, // distance per pulse
 		top = 2700.0;
 
-	public static DifferentialDrive drive = new DifferentialDrive(
+	public static DifferentialDrive drive = new DifferentialDrive( // Tank controls
 		new SpeedControllerGroup(
 			new Spark(RobotMap.leftBackMotor),
 			new Spark(RobotMap.leftFrontMotor)
@@ -73,34 +73,34 @@ public class RobotMap {
 		)
 	);
 
-	public static Encoder
+	public static Encoder // Left and right driveline odometers
 		leftEncoder = new Encoder(leftEncoderA, leftEncoderB),
 		rightEncoder = new Encoder(rightEncoderA, rightEncoderB);
 
-    public static Spark winch = new Spark(winchMotor);
+	public static Spark winch = new Spark(winchMotor); // Big lift motor
     
-    public static WPI_TalonSRX claw = new WPI_TalonSRX(clawMotor);
-    public static DigitalInput clawSwitch = new DigitalInput(clawSwitchPort);
-;
-    public static Servo view = new Servo(cameraServo);
-    
-	public static DigitalInput
-    	elevatorLow = new DigitalInput(lowSwitch),
-    	elevatorHigh = new DigitalInput(highSwitch);
+	public static WPI_TalonSRX claw = new WPI_TalonSRX(clawMotor); // Little lift motor
+	public static DigitalInput clawSwitch = new DigitalInput(clawSwitchPort); // Claw limit switch
 
-	public static Compressor compressor = new Compressor(pcmPort);
+	public static Servo view = new Servo(cameraServo); // Changes camera angle
 
-	public static AnalogInput pressure = new AnalogInput(pressurePort);
-	
-	public static Solenoid
+	public static DigitalInput // Lift limit switches
+		elevatorLow = new DigitalInput(lowSwitch),
+		elevatorHigh = new DigitalInput(highSwitch);
+
+	public static Compressor compressor = new Compressor(pcmPort); // Air tank compressor
+
+	public static AnalogInput pressure = new AnalogInput(pressurePort); // Air tank pressure
+
+	public static Solenoid // Claw valves
 		leftClaw = new Solenoid(leftSolenoid),
 		rightClaw = new Solenoid(rightSolenoid);
-	
-	public static Timer timer = new Timer();
+
+	public static Timer timer = new Timer(); // Timer for auto
 	//public static Ultrasonic ultra = new Ultrasonic(ultraP, ultraE);
-	public static ADXRS450_Gyro gyro = new ADXRS450_Gyro();
+	public static ADXRS450_Gyro gyro = new ADXRS450_Gyro(); // Gyro for auto
 	//public static USB
-	static {
+	static { // Set up all sensors when robot turns on
 		timer.reset();
 		timer.start();
 		leftEncoder.setDistancePerPulse(dpp);
