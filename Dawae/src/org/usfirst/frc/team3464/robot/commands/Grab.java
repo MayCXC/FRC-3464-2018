@@ -5,7 +5,7 @@ import org.usfirst.frc.team3464.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
 
-public class Grab extends InstantCommand {
+public class Grab extends InstantCommand { // Open and close the claw
 	private boolean grip;
 
     public Grab(boolean grip) {
