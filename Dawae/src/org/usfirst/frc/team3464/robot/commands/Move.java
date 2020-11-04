@@ -6,7 +6,7 @@ import org.usfirst.frc.team3464.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public abstract class Move extends Command {
+public abstract class Move extends Command { // Abstract movement, translation, rotation, maybe some combination
 	protected DoubleSupplier progress;
 	protected double finished;
 
