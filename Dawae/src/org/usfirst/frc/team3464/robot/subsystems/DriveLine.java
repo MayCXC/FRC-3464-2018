@@ -16,7 +16,7 @@ public class DriveLine extends Subsystem { // Controls robot movement
 			// defense = .45;
 		return
 			Math.asin( Math.atan( Math.tan( rad/2.0 ) * attack ) * radnorm ) * radnorm;
-			// Math.atan( 1.0 / Math.tan( rad/2.0 ) ) * radnorm * defence;
+			// Math.atan( 1.0 / Math.tan( rad/2.0 ) ) * radnorm * defense;
 	}
 
 	private double idRange(double n) { // Utility function to clamp inputs between -1,1
