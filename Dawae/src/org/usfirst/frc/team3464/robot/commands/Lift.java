@@ -6,7 +6,7 @@ import org.usfirst.frc.team3464.robot.RobotMap;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class Lift extends Command {
+public class Lift extends Command { // Move the lift, could extend Move
 	private DigitalInput finished;
 	private double speed = 0.0;
 	
