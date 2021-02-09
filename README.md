@@ -66,11 +66,11 @@ might be spread between the operator interface, the robot map, robot and subsyst
 
 ## Implementation: Hardware mapping and the Operator interface
 
-Good: the sample wpilib project provided a RobotMap class that centralized the physical inputs and outputs exposed by the API.
+**Good:** The sample wpilib project provided a RobotMap class that centralized the physical inputs and outputs exposed by the API.
 This allowed for quick testing of new hardware, and even allowed us to test the robot code on other robots by disabling and
 remapping various components.
 
-Okay: The sample also provided an OI class that managed inputs, which included several ways of running commands in response to
+**Okay:** The sample also provided an OI class that managed inputs, which included several ways of running commands in response to
 button presses. We didn't use this feature extensively, as we wanted our teleop code to have precise control over the robot.
 
 # Result: Could have done better :(
