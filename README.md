@@ -52,7 +52,7 @@ of the resources wpilib and java 8 provided.
 
 The wpilib Command Scheduler both greatly simplified our auto code, and added the functionality of multitasking during auto.
 Instead of being buried in endless nested loops and recursion, the auto procedures were now [clearly laid out in sequences of
-reusable commands](https://github.com/mayhd3/FRC-3464-2018/blob/master/Dawae/src/org/usfirst/frc/team3464/robot/commands/Autonomous.java#L25). This meant that it was easy to have the robot lift its cube and start driving at the same time.
+reusable commands](https://github.com/MayCXC/FRC-3464-2018/blob/master/Dawae/src/org/usfirst/frc/team3464/robot/commands/Autonomous.java#L25). This meant that it was easy to have the robot lift its cube and start driving at the same time.
 
 Java 8 functional interfaces allowed parts of commands to be decoupled from their classes, which allowed us to use
 the same class to perform similar tasks. For example, the Drive command can move the robot for either a timer duration or an
