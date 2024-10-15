@@ -34,7 +34,7 @@ to help you organize your robot programs. Some of the characteristics of robot p
 desktop programs are:
 - Activities happen over time, for example a sequence of steps to shoot a Frisbee or raise an elevator and place a tube on a
 goal.
-- These activities occur concurrently, that is it might be desirable for an elevator, wrist and gripper to all be moving into a
+- These activities occur concurrently, that is it may be desirable for an elevator, wrist and gripper to all be moving into a
 pickup position at the same time to increase robot performance.
 - It is desirable to test the robot mechanisms and activities each individually to help debug your robot.
 - Often the program needs to be augmented with additional autonomous programs at the last minute, perhaps at competitions, so
